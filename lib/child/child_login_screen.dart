@@ -142,6 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         !email.contains("@")) {
                                       return 'enter correct email';
                                     }
+                                    return null;
                                   },
                                 ),
                                 CustomTextField(

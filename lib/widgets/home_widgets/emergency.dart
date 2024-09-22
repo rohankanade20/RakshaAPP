@@ -18,9 +18,10 @@ class Emergency extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: [
           PoliceEmergency(),
+          ArmyEmergency(),
           AmbulanceEmergency(),
           FirebrigadeEmergency(),
-          ArmyEmergency(),
+
         ],
       ),
     );

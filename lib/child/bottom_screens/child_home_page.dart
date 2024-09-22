@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:background_sms/background_sms.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
@@ -26,16 +27,16 @@ class _HomeScreenState extends State<HomeScreen> {
   LocationPermission? permission;
   _getPermission() async => await [Permission.sms].request();
   _isPermissionGranted() async => await Permission.sms.status.isGranted;
-  // _sendSms(String phoneNumber, String message, {int? simSlot}) async {
-  //   SmsStatus result = await BackgroundSms.sendMessage(
-  //       phoneNumber: phoneNumber, message: message, simSlot: 1);
-  //   if (result == SmsStatus.sent) {
-  //     print("Sent");
-  //     Fluttertoast.showToast(msg: "send");
-  //   } else {
-  //     Fluttertoast.showToast(msg: "failed");
-  //   }
-  // }
+  _sendSms(String phoneNumber, String message) async {
+    SmsStatus result = await BackgroundSms.sendMessage(
+        phoneNumber: phoneNumber, message: message, simSlot: 1);
+    if (result == SmsStatus.sent) {
+      print("Sent");
+      Fluttertoast.showToast(msg: "send");
+    } else {
+      Fluttertoast.showToast(msg: "failed");
+    }
+  }
   String _currentCity = "";
   checkLocationPermission() async {
     bool permissionGranted = await _requestLocationPermission();
@@ -169,75 +170,63 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: Colors.grey.shade100,
                           borderRadius: BorderRadius.circular(10)),
                       child: Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(5.0),
                         child: Column(
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CircleAvatar(
-                                  child: Icon(Icons.flight_takeoff_outlined),
-                                  backgroundColor: Colors.grey.shade300,
-                                ),
-                                SizedBox(width: 5),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    _locationPermissionGranted == false
-                                        ? Text(
-                                            "Turn on location services.",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        : Text("Location enabled"),
-                                    SizedBox(height: 5),
-                                    _currentCity.isEmpty
-                                        ? Text(
-                                            "please enable locations for a better \nexperiences.",
-                                            maxLines: 2,
-                                            style: TextStyle(),
-                                          )
-                                        : Text("Current City $_currentCity"),
-                                    SizedBox(height: 5),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: _locationPermissionGranted == true
-                                          ? SizedBox()
-                                          : MaterialButton(
-                                              onPressed: () async {
-                                                checkLocationPermission();
-                                              },
-                                              color: Colors.grey.shade100,
-                                              shape: StadiumBorder(),
-                                              child: Text(
-                                                "Enable location",
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              ),
-                                            ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
+                          // children: [
+                          //   Row(
+                          //     crossAxisAlignment: CrossAxisAlignment.start,
+                          //     children: [
+                          //       // CircleAvatar(
+                          //       //   child: Icon(Icons.flight_takeoff_outlined),
+                          //       //   backgroundColor: Colors.grey.shade300,
+                          //       // ),
+                          //       SizedBox(width: 5),
+                          //       Column(
+                          //         mainAxisAlignment: MainAxisAlignment.start,
+                          //         crossAxisAlignment: CrossAxisAlignment.start,
+                          //         // children: [
+                          //         //   _locationPermissionGranted == false
+                          //         //       ? Text(
+                          //         //           "Turn on location services.",
+                          //         //           style: TextStyle(
+                          //         //               fontWeight: FontWeight.bold),
+                          //         //         )
+                          //         //       : Text("Location enabled"),
+                          //         //   SizedBox(height: 5),
+                          //         //   _currentCity.isEmpty
+                          //         //       ? Text(
+                          //         //           "please enable locations for a better \nexperiences.",
+                          //         //           maxLines: 2,
+                          //         //           style: TextStyle(),
+                          //         //         )
+                          //         //       : Text("Current City $_currentCity"),
+                          //         //   SizedBox(height: 5),
+                          //         //   Align(
+                          //         //     alignment: Alignment.centerLeft,
+                          //         //     child: _locationPermissionGranted == true
+                          //         //         ? SizedBox()
+                          //         //         : MaterialButton(
+                          //         //             onPressed: () async {
+                          //         //               checkLocationPermission();
+                          //         //             },
+                          //         //             color: Colors.grey.shade100,
+                          //         //             shape: StadiumBorder(),
+                          //         //             child: Text(
+                          //         //               "Enable location",
+                          //         //               style: TextStyle(
+                          //         //                   color: Colors.black),
+                          //         //             ),
+                          //         //           ),
+                          //         //   ),
+                          //         // ],
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ],
                         ),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "Incase of emergency dial me",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                    Emergency(),
-                    SizedBox(height: 10),
+
                     Align(
                       alignment: Alignment.center,
                       child: Padding(
@@ -251,6 +240,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(height: 10),
                     CustomCarouel(),
+                    SizedBox(height: 10),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Incase of emergency dial me",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    Emergency(),
                     SizedBox(height: 10),
                     Align(
                       alignment: Alignment.center,

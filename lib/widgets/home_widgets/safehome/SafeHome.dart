@@ -18,7 +18,7 @@ class _SafeHomeState extends State<SafeHome> {
   LocationPermission? permission;
 
   _isPermissionGranted() async => await Permission.sms.status.isGranted;
-  _sendSms(String phoneNumber, String message, {int? simSlot}) async {
+  _sendSms(String phoneNumber, String message) async {
     SmsStatus result = await BackgroundSms.sendMessage(
         phoneNumber: phoneNumber, message: message, simSlot: 1);
     if (result == SmsStatus.sent) {

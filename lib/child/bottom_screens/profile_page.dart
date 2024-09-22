@@ -219,6 +219,7 @@ class _ProfilePageState extends State<ProfilePage> {
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
     }
+    return null;
   }
 
   update() async {

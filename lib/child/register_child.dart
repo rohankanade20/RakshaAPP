@@ -169,6 +169,7 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                                           !email.contains("@")) {
                                         return 'enter correct email';
                                       }
+                                      return null;
                                     },
                                   ),
                                   CustomTextField(
@@ -185,6 +186,7 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                                           !email.contains("@")) {
                                         return 'enter correct email';
                                       }
+                                      return null;
                                     },
                                   ),
                                   CustomTextField(

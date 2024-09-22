@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:women_safety_app/utils/quotes.dart';
-import 'package:women_safety_app/widgets/home_widgets/safewebview.dart';
 
 class CustomCarouel extends StatelessWidget {
   const CustomCarouel({Key? key}) : super(key: key);
@@ -28,33 +27,33 @@ class CustomCarouel extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             child: InkWell(
-              onTap: () {
-                if (index == 0) {
-                  navigateToRoute(
-                      context,
-                      SafeWebView(
-                          url:
-                              "https://gulfnews.com/world/asia/pakistan/womens-day-10-pakistani-women-inspiring-the-country-1.77696239"));
-                } else if (index == 1) {
-                  navigateToRoute(
-                      context,
-                      SafeWebView(
-                          url:
-                              "https://plan-international.org/ending-violence/16-ways-end-violence-girls"));
-                } else if (index == 2) {
-                  navigateToRoute(
-                      context,
-                      SafeWebView(
-                          url:
-                              "https://www.healthline.com/health/womens-health/self-defense-tips-escape"));
-                } else {
-                  navigateToRoute(
-                      context,
-                      SafeWebView(
-                          url:
-                              "https://www.healthline.com/health/womens-health/self-defense-tips-escape"));
-                }
-              },
+              // onTap: () {
+              //   if (index == 0) {
+              //     navigateToRoute(
+              //         // context,
+              //         // SafeWebView(
+              //         //     url:
+              //         //         "https://gulfnews.com/world/asia/pakistan/womens-day-10-pakistani-women-inspiring-the-country-1.77696239"));
+              //   } else if (index == 1) {
+              //     navigateToRoute(
+              //         context,
+              //         SafeWebView(
+              //             url:
+              //                 "https://plan-international.org/ending-violence/16-ways-end-violence-girls"));
+              //   } else if (index == 2) {
+              //     navigateToRoute(
+              //         context,
+              //         SafeWebView(
+              //             url:
+              //                 "https://www.healthline.com/health/womens-health/self-defense-tips-escape"));
+              //   } else {
+              //     navigateToRoute(
+              //         context,
+              //         SafeWebView(
+              //             url:
+              //                 "https://www.healthline.com/health/womens-health/self-defense-tips-escape"));
+              //   }
+              // },
               child: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
